@@ -1,0 +1,96 @@
+---
+title: "Discussion 06"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Central Limit Theorem
+
+Accoruding to the central limit theorem, the sample mean is normally
+distributed. Note that this holds irrespective of the distribution
+defining the population. The population itself need not follow a
+normal distribution.
+
+## Simulate a population that is not distributed randomly
+```{r}
+population1 <- rnorm(20000, mean = 10, sd = 3)
+population2 <- rnorm(80000, mean = 70, sd = 10)
+
+# Create a population of 100,000 numbers
+population <- c(population1, population2)
+hist(population)
+```
+
+Clearly the above population is not normally distributed.
+We will now sample this population for different number of times
+and see its distribution.
+
+## Simulating Sample Means
+
+We will start of with sampling this population and calculate the sample mean. The
+sample size is set to two and we obtain 100 such samples. Does the
+distribution look normal to you?
+
+```{r}
+sample.size <- 2
+number.samples <- 100
+# Obtain 100 samples each of size 2 by sampling the population
+ybars <- replicate(number.samples, mean(sample(population, sample.size,replace = TRUE)))
+hist(ybars)
+```
+
+
+## Let's increase the sample size to 10:
+
+```{r}
+sample.size <- 10
+number.samples <- 100
+# Obtain 100 samples each of size 2 by sampling the population
+ybars <- replicate(number.samples, mean(sample(population, sample.size, replace = TRUE)))
+hist(ybars)
+```
+
+## What happens if we increase the sample size to 30?
+
+```{r}
+sample.size <- 30
+number.samples <- 100
+# Obtain 100 samples each of size 2 by sampling the population
+ybars <- replicate(number.samples, mean(sample(population, sample.size, replace = TRUE)))
+hist(ybars)
+```
+
+
+
+
+
+## What if we sample the population for samples of size 30 and look at its distribution (not its mean), would it be normally distributed?
+
+```{r}
+sample.size <- 30
+number.samples <- 100
+y <- replicate(number.samples, sample(population, sample.size,replace = TRUE))
+hist(y)
+```
+
+# Aside 1: Calculating t statistic in R
+
+You can use R to calculate t-statistic in using the `qt` (qunatile of t) command.
+For example, to calculate the t-statistic cooresponding to 95% confidence interval
+with 12.8 degrees of freedom:
+
+```{r}
+abs(qt(0.05/2, 12.8))
+```
+
+# Aside 2: Calculating z statistic in R
+
+Similarly, z-statistic can be obtained by using the `qnorm` (quantile of normal) command.
+Z score corresponding to $P(Z<0.05)$ is given as:
+
+```{r}
+qnorm(0.05)
+```
+
+
