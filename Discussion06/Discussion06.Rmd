@@ -1,8 +1,9 @@
 ---
 title: "Discussion 06"
 output:
-  pdf_document: default
+  html_document: default
   html_notebook: default
+  pdf_document: default
 ---
 
 # Central Limit Theorem
@@ -46,7 +47,6 @@ hist(ybars)
 ```{r}
 sample.size <- 10
 number.samples <- 100
-# Obtain 100 samples each of size 2 by sampling the population
 ybars <- replicate(number.samples, mean(sample(population, sample.size, replace = TRUE)))
 hist(ybars)
 ```
@@ -56,7 +56,6 @@ hist(ybars)
 ```{r}
 sample.size <- 30
 number.samples <- 100
-# Obtain 100 samples each of size 2 by sampling the population
 ybars <- replicate(number.samples, mean(sample(population, sample.size, replace = TRUE)))
 hist(ybars)
 ```
