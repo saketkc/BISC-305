@@ -1,0 +1,89 @@
+---
+title: "R Project 1"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r}
+heart.data <- read.csv("~/Downloads/ClevelandHeartData.csv")
+```
+
+#1. How many of the 303 patients were diagnosed with heart disease?
+
+```{r}
+sum(heart.data$presence.or.absence.of.heart.disease..0..50.diameter.narrowing.1..50.diameter.narrowing.)
+```
+
+# 2. Make a histogram of the data in the “maximum heart rate achieved” column.
+```{r}
+hist(heart.data$maximum.heart.rate.achieved)
+```
+
+# 3. Report the sample mean, median, and sample standard deviation for the maximum heart rate.
+
+```{r}
+mean(heart.data$maximum.heart.rate.achieved)
+```
+
+```{r}
+median(heart.data$maximum.heart.rate.achieved)
+```
+
+```{r}
+sd(heart.data$maximum.heart.rate.achieved)
+```
+
+
+
+# 4. Make a side-by-side boxplot of the maximum heart rate for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease.
+
+```{r}
+boxplot(maximum.heart.rate.achieved~presence.or.absence.of.heart.disease..0..50.diameter.narrowing.1..50.diameter.narrowing., heart.data)
+```
+
+
+# 5. Do a t-test to test whether the maximum heart rate is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report both the p-value and the 95% confidence interval for the difference of the population means. Clearly state your conclusion.
+
+```{r}
+heart.data.withDisease <- heart.data[heart.data$presence.or.absence.of.heart.disease..0..50.diameter.narrowing.1..50.diameter.narrowing.==1,]
+heart.data.withoutDisease <- heart.data[heart.data$presence.or.absence.of.heart.disease..0..50.diameter.narrowing.1..50.diameter.narrowing.==0,]
+t.test(heart.data.withDisease$maximum.heart.rate.achieved, heart.data.withoutDisease$maximum.heart.rate.achieved)
+```
+
+# 6. Do a Wilcoxon-Mann-Whitney test to test whether the maximum heart rate is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report the p-value and clearly state your conclusion.
+```{r}
+wilcox.test(heart.data.withDisease$maximum.heart.rate.achieved, heart.data.withoutDisease$maximum.heart.rate.achieved)
+```
+
+# 7. Make a histogram of the data in the cholesterol column.
+```{r}
+hist(heart.data$cholestoral.in.mg.dl)
+```
+
+# 8. Make a qqplot and do the Shapiro-Wilk test to test whether the cholesterol values are distributed normally.
+```{r}
+qqnorm(heart.data$cholestoral.in.mg.dl)
+qqline(heart.data$cholestoral.in.mg.dl)
+```
+
+```{r}
+shapiro.test(heart.data$cholestoral.in.mg.dl)
+```
+
+# 9. Make a side-by-side boxplot of the cholesterol values for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease.
+
+```{r}
+boxplot(cholestoral.in.mg.dl~presence.or.absence.of.heart.disease..0..50.diameter.narrowing.1..50.diameter.narrowing., heart.data)
+```
+
+# 10. Do a t-test to test whether cholesterol is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report both the p-value and the 95% confidence interval for the difference of the population means. Clearly state your conclusion.
+```{r}
+t.test(heart.data.withDisease$cholestoral.in.mg.dl, heart.data.withoutDisease$cholestoral.in.mg.dl)
+
+```
+
+# 11. Propose your own question to answer with this data set (for example, is the maximum heart rate significantly different for men and women in this data set?). Clearly state the question you are trying to answer, the test you performed, the results of the test, and your conclusion. If there are any relevant plots include them as well.
+
+```{r}
+````
