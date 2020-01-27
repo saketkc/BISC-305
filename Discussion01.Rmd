@@ -1,0 +1,67 @@
+---
+title: "Discussion01 - Calcualting summary statistics"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Define Vector
+
+In R a "vector" represents a collection of observation and
+is defined by "c(a,b,c,...)" where a,b,c.. represent individual
+observations which could be categorical or numeric. We will
+stick to numeric observations for this discussion.
+
+
+```{r}
+y <- c(10, 13, 12, 15, 23, 20)
+```
+
+The `<-` is equivalent to an "=" sign and indicates that 
+we are setting the "value" of `y` to be the observation vector.
+You can also use the `=` sign  in place of `<-`, but it is 
+usually a good practice to stick to `<-`.
+
+
+# Median
+
+To calculate median, we simply use the `median` command:
+
+```{r}
+median(y)
+```
+
+# Mean
+
+Similarly, mean is calculate by the `mean` command:
+
+```{r}
+mean(y)
+```
+
+# Quantiles
+
+To calculate Q1/Q3, we will use the `quantile` function 
+
+```{r}
+quantile(y)
+```
+
+# IQR
+
+```{r}
+IQR(y)
+```
+
+
+# Histogram
+
+```{r}
+hist(y)
+```
+
+# Boxplot
+
+```{r}
+boxplot(y)
+```
