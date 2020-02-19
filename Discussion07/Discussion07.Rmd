@@ -29,7 +29,7 @@ se.placebo <- sd.placebo/sqrt(n.placebo)
 
 se.difference <- sqrt(se.vitaminC^2 + se.placebo^2)
 tstat <- (mean.vitaminC-mean.placebo)/(se.difference)
-
+tstat
 ```
 
 For calculating the degrees of freedom we will use the 'exact' formula
@@ -42,6 +42,7 @@ $$
 ```{r}
 
 df <- (se.vitaminC^2+se.placebo^2)^2/((se.vitaminC^4)/(n.vitaminC-1)+(se.placebo^4)/(n.placebo-1))
+df
 ```
 
 Now we have tstat, say '$t$' and the degrees of freedom '$df$', the two-sided pvalue can be calculated using:
@@ -89,8 +90,12 @@ To calculate $t_{0.025}$ we will make use of the `qt` function in R which gives 
 
 ```{r}
 t <- qt(0.05/2, df)
-upper.ci <- (mean.vitaminC-mean.placebo) + se.difference * t
-lower.ci <- (mean.vitaminC-mean.placebo) - se.difference * t
+t
+```
+
+```{r}
+lower.ci <- (mean.vitaminC-mean.placebo) + se.difference * t
+upper.ci <- (mean.vitaminC-mean.placebo) - se.difference * t
 ```
 
 ```{r}

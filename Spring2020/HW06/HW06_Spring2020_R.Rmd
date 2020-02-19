@@ -1,0 +1,19 @@
+---
+title: "HW06 solution"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r}
+head(ToothGrowth)
+```
+
+```{r}
+oj_or_vc <- ToothGrowth[ToothGrowth$supp %in% c("OJ", "VC"),]
+qqnorm(oj_or_vc$len)
+```
+
+```{r}
+t.test(oj_or_vc$len)
+```
