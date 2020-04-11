@@ -1,0 +1,176 @@
+---
+title: "BISC 305 R Project 1 - Your Name"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+date: "02/24/2020"
+---
+
+# Data Description
+
+In the "Content/R stuff" section of Blackboard there a file called "ClevelandHD.csv".
+Download this dataset onto your computer, and import it into R.
+
+The data is from 303 consecutive patients that were referred for coronary angiography at the
+Cleveland Clinic between May 1981 and September 1984. No patient had a history or
+electrocardiographic evidence of prior myocardial infarction or known valvular or
+cardiomyopathic disease. For each patient there are 11 variables:
+
+1. age
+
+2. gender (1=male, 0=female)
+
+3. chestpain (1=typical angina, 2=atypical angine, 3=non-anginal pain, 4=asymptomatic)
+
+4. bp resting blood pressure (mm Hg)
+
+5. chol cholesterol (mg/dl)
+
+6. fastingbloodsugar > 120 mg/dl (1=true, 0=false)
+
+7. electro resting electrocardiographic results (0=normal, 1=ST-T wave abnormality, 2=left
+ventricular hypertrophy)
+
+8. maxheartrate maximum heart rate achieved
+
+9. exercise induced angina (1=yes, 0=no)
+
+10. fluoroscopy number of major vessels (0-3) colored by fluoroscopy
+
+11. presenceHD patient diagnosed with heart disease (1=yes, 0=no)
+
+
+For all questions below, the significance level $\alpha = 0.05$. Make an R notebook, and "Knit to
+PDF". **Turn in the pdf document.**
+
+
+# Read Data
+
+```{r}
+ClevelandHD <- read.csv("~/Downloads/ClevelandHD.csv")
+HungaryHD <- read.csv("~/Downloads/HungaryHD.csv")
+```
+
+
+# 1. How many of the 303 patients were diagnosed with heart disease?
+
+```{r}
+sum(ClevelandHD$presenceHD==1)
+```
+
+
+# 2. Make a histogram and a qqplot of the data in the "maxheartrate" column.
+
+```{r}
+hist(ClevelandHD$maxheartrate)
+```
+
+```{r}
+qqnorm(ClevelandHD$maxheartrate)
+qqline(ClevelandHD$maxheartrate)
+```
+
+# 3. For this column, report the sample mean, median, sample standard deviation, and 95% confidence interval for the population mean.
+
+```{r}
+mean(ClevelandHD$maxheartrate)
+```
+
+```{r}
+median(ClevelandHD$maxheartrate)
+```
+
+```{r}
+sd(ClevelandHD$maxheartrate)
+```
+
+
+```{r}
+t.test(ClevelandHD$maxheartrate)
+```
+
+# 4. Make a side-by-side boxplot of the maximum heart rate for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease.
+
+```{r}
+boxplot(maxheartrate ~ presenceHD, ClevelandHD)
+```
+# 5. Do a t-test to test whether the maximum heart rate is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report both the p-value and the 95% confidence interval for the difference of the population means. Clearly state your conclusion.
+
+```{r}
+with.heartdisease <-ClevelandHD[ClevelandHD$presenceHD==1,]
+without.heartdisease <-ClevelandHD[ClevelandHD$presenceHD==0,]
+t.test(with.heartdisease$maxheartrate,  without.heartdisease$maxheartrate)
+```
+
+# 6. Do a Wilcoxon-Mann-Whitney test to test whether the maximum heart rate is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report the p-value and clearly state your conclusion. Do the conclusions of the t-test and the Wilcoxon-Mann-Whitney test agree? Discuss.
+
+
+```{r}
+wilcox.test(with.heartdisease$maxheartrate,  without.heartdisease$maxheartrate)
+```
+
+# 7. Make a histogram and a qqplot of the data in the “chol” column.
+
+```{r}
+hist(ClevelandHD$chol)
+```
+
+```{r}
+qqnorm(ClevelandHD$chol)
+qqline(ClevelandHD$chol)
+```
+
+# 8. For this column, report the sample mean, median, sample standard deviation, and 95% confidence interval for the population mean.
+
+```{r}
+mean(ClevelandHD$chol)
+```
+
+```{r}
+median(ClevelandHD$chol)
+```
+
+```{r}
+sd(ClevelandHD$chol)
+```
+
+
+```{r}
+t.test(ClevelandHD$chol)
+```
+
+# 9. Make a side-by-side boxplot of the cholesterol values for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease.
+
+```{r}
+boxplot(chol ~ presenceHD, ClevelandHD)
+
+```
+
+# 10. Do a t-test to test whether cholesterol is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report both the p-value and the 95% confidence interval for the difference of the population means. Clearly state your conclusion.
+
+```{r}
+t.test(with.heartdisease$chol,  without.heartdisease$chol)
+
+```
+
+# 11. Do a Wilcoxon-Mann-Whitney test to test whether cholesterol is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report the p-value and clearly state your conclusion. Do the conclusions of the t-test and the Wilcoxon-Mann-Whitney test agree? Discuss. 
+
+```{r}
+wilcox.test(with.heartdisease$chol,  without.heartdisease$chol)
+
+```
+
+# 12. Propose your own question to answer with this dataset (for example, is the maximum heart rate significantly different for men and women?). Clearly state the question you are trying to answer, the test you performed, the results of the test, and your conclusion. If there are any relevant plots include them as well.
+
+
+```{r}
+
+```
+
+# 13. In the "Content/R stuff" section of Blackboard there is another file called "HungaryHD.csv". Download this dataset onto your computer, and import it to R. This is a similar dataset to the Cleveland dataset, except the patients are all from Hungary. Repeat the test you proposed in question #12 on this dataset. Do you reach the same conclusion? Discuss.
+
+
+```{r}
+
+```
