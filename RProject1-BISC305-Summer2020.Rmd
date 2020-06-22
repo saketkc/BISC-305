@@ -1,0 +1,139 @@
+---
+title: "R Project 1"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+```{r}
+ClevelandHD <- read.csv("C:/Users/saket/Downloads/ClevelandHD.csv")
+HungaryHD <- read.csv("C:/Users/saket/Downloads/HungaryHD.csv")
+```
+
+
+# 1. How many of the 303 patients were diagnosed with heart disease?
+
+```{r}
+sum(ClevelandHD$presenceHD==1)
+```
+# 2. Make a histogram and a qqplot of the data in the “maxheartrate” column.
+
+```{r}
+hist(ClevelandHD$maxheartrate)
+```
+```{r}
+qqnorm(ClevelandHD$maxheartrate)
+qqline(ClevelandHD$maxheartrate)
+```
+
+# 3. For this column, report the sample mean, median, sample standard deviation, and 95% confidence interval for the population mean.
+
+```{r}
+mean(ClevelandHD$maxheartrate)
+```
+
+```{r}
+median(ClevelandHD$maxheartrate)
+```
+
+```{r}
+sd(ClevelandHD$maxheartrate)
+```
+
+```{r}
+t.test(ClevelandHD$maxheartrate)
+```
+
+
+
+
+
+# 4. Make a side-by-side boxplot of the maximum heart rate for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease.
+
+
+```{r}
+boxplot(maxheartrate ~ presenceHD, data=ClevelandHD)
+```
+
+
+# 5. Do a t-test to test whether the maximum heart rate is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report both the p-value and the 95% confidence interval for the difference of the population means. Clearly state your conclusion.
+
+```{r}
+heart.data.withDisease <- ClevelandHD[ClevelandHD$presenceHD==1,]
+heart.data.withoutDisease <- ClevelandHD[ClevelandHD$presenceHD==0,]
+t.test(heart.data.withDisease$maxheartrate, heart.data.withoutDisease$maxheartrate)
+
+```
+
+# 6. Do a Wilcoxon-Mann-Whitney test to test whether the maximum heart rate is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report the p-value and clearly state your conclusion. Do the conclusions of the t-test and the Wilcoxon-Mann-Whitney test agree? Discuss.
+
+```{r}
+wilcox.test(heart.data.withDisease$maxheartrate, heart.data.withoutDisease$maxheartrate)
+
+```
+The conlcusions do not change between t-test and Wilcoxon test. The QQplot shows the maxheartrate might not be normally distributed and as such t-test might not be the most appropriate test here. Wilcoxon-test is always valid (no assumptions on the distribution). Though in this case, applying a t-test also results in a pvalue of the same order as the wilcoxon test, ideally you would choose only one test to test your hypothesis. It might be more approrpriate to choose wiclxon test.
+
+# 7. Make a histogram and a qqplot of the data in the “chol” column.
+
+```{r}
+hist(ClevelandHD$chol)
+```
+
+# 8. For this column, report the sample mean, median, sample standard deviation, and 95% confidence interval for the population mean.
+
+```{r}
+mean(ClevelandHD$chol)
+```
+
+```{r}
+median(ClevelandHD$chol)
+```
+
+```{r}
+sd(ClevelandHD$chol)
+```
+
+```{r}
+t.test(ClevelandHD$chol)
+```
+
+
+# 9. Make a side-by-side boxplot of the cholesterol values for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease.
+
+
+```{r}
+boxplot(chol ~ presenceHD, data=ClevelandHD)
+```
+
+# 10. Do a t-test to test whether cholesterol is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report both the p-value and the 95% confidence interval for the difference of the population means. Clearly state your conclusion.
+
+
+Check for normality:
+
+```{r}
+qqnorm(ClevelandHD$chol)
+qqline(ClevelandHD$chol)
+```
+
+```{r}
+t.test(heart.data.withDisease$chol, heart.data.withoutDisease$chol)
+```
+
+# 11. Do a Wilcoxon-Mann-Whitney test to test whether cholesterol is significantly different for those patients diagnosed with heart disease vs. those patients not diagnosed with heart disease. Report the p-value and clearly state your conclusion. Do the conclusions of the t-test and the Wilcoxon-Mann-Whitney test agree? Discuss.
+
+
+```{r}
+wilcox.test(heart.data.withDisease$chol, heart.data.withoutDisease$chol)
+```
+
+
+In this case, the conclusion between t-test and wicoxon test are different (reject null if using wilcoxon but not if using a t-test.). Thought the wiclxon tedt pvalue is only  border line. The data does appear to be normally distributed and as such a t-test might be more "powerful" in this setting. Ideally, you would have choosen just one test (t-test in this case having establsiehd the normality of chol column)
+
+
+# 12. Propose your own question to answer with this dataset (for example, is the maximum heart rate significantly different for men and women?). Clearly state the question you are trying to answer, the test you performed, the results of the test, and your conclusion. If there are any relevant plots include them as well.
+
+
+
+# 13. In the “Content/R stuff” section of Blackboard I have placed another file called “HungaryHD.csv”. Download this dataset onto your computer, and import it to R. This is a similar dataset to the Cleveland dataset, except the patients are all from Hungary. Repeat the test you proposed in question #12 on this dataset. Do you reach the same conclusion? Discuss.
+
